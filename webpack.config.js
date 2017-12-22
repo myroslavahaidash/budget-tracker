@@ -1,27 +1,68 @@
-const path = require('path');
+const path = require('path'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    webpack = require('webpack');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const paths = {
+    DIST: path.resolve('dist'),
+    APP: path.resolve('app')
+};
+
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-    template: './app/index.html',
-    filename: 'index.html',
-    inject: 'body'
+    template: path.join(paths.APP, 'index.html')
 });
 
 module.exports = {
-    entry: './app/app.js',
+    entry: {
+        app: path.join(paths.APP, 'app.js')
+    },
     output: {
-        path: path.resolve('dist'),
-        filename: 'app_bundle.js'
+        path: paths.DIST,
+        filename: 'app.bundle.js'
     },
     module: {
-        loaders: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: [
+                    'babel-loader',
+                ]
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                        ]
+                }),
+            }
         ]
     },
-    plugins: [HtmlWebpackPluginConfig],
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    plugins: [
+        HtmlWebpackPluginConfig,
+        new ExtractTextPlugin('style.bundle.css'),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    devtool: 'source-map',
     devServer: {
         historyApiFallback: true,
-        port: 8080
+        port: 8080,
+        hot: true
     }
 };

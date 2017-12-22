@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { Navigation } from "./Navigation.jsx";
+import { Navigation } from "../Navigation";
 import { Route, withRouter } from 'react-router-dom';
-import { StatisticPage } from "./StatisticPage.jsx";
-import { HomePage } from "./HomePage.jsx";
+import { StatisticPage } from "../StatisticPage.jsx";
+import { HomePage } from "../HomePage.jsx";
+import "./app.scss";
 
 class App extends Component {
     render() {
