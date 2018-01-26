@@ -1,25 +1,27 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Navigation } from "../Navigation";
 import { Route, withRouter } from 'react-router-dom';
-import { StatisticPage } from "../StatisticPage.jsx";
-import { HomePage } from "../HomePage.jsx";
-import "./app.scss";
+
+import HomePage from '../HomePage/HomePage';
+import { StatisticPage } from '../StatisticPage/StatisticPage';
+import { SettingsPage } from '../SettingsPage/SettingsPage';
+import Header from '../Header/Header';
+
+import './app.scss';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <Navigation/>
-                <Route path="/" exact component={HomePage}/>
-                <Route path="/statistic" component={StatisticPage}/>
+            <div className={'app'}>
+                <Header/>
+                <Route path='/' exact component={HomePage}/>
+                <Route path='/statistic' component={StatisticPage}/>
+                <Route path='/settings' component={SettingsPage}/>
             </div>
         );
     }
 }
 
-function mapStateToProps(state){
-    return state;
-}
+const mapStateToProps = (state) => state;
 
 export  default  withRouter(connect(mapStateToProps)(App));
