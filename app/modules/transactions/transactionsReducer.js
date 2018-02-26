@@ -30,10 +30,19 @@ const initialState = [
 export default function transactionsReducer(state = initialState, action) {
     switch (action.type) {
         case transactionsActions.ADD_TRANSACTION:
-            return [action.payload, ...state];
+            return [action.payload.transactionData, ...state];
+
+        case transactionsActions.EDIT_TRANSACTION: {
+            const transaction = state.find(t => t.id === action.payload.transaction.id);
+            const editedTransaction = {...transaction, ...action.payload.newTransactionData};
+            const indexOfTransaction = state.indexOf(action.payload.transaction);
+            return [...(state.filter( (item, index) => index !== indexOfTransaction)), editedTransaction];
+        }
+
         case transactionsActions.DELETE_TRANSACTION:
             state.splice(state.indexOf(action.payload), 1);
             return [...state];
+
         default:
             return state;
     }

@@ -2,23 +2,34 @@ import React, { Component } from 'react';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import './transaction.scss';
-import AddTransactionContainer from '../../containers/AddTransactionContainer';
+import TransactionFormContainer from '../../containers/TransactionFormContainer';
 
 export default class Transaction extends Component {
     state = {
-      duplicateFormOpen: false
+        formOpen: false,
+        mode: ''
     };
 
     handleDeleteClick = () => {
         this.props.deleteTransaction(this.props.transaction);
     };
 
-    handleClickOpenDuplicateForm = () => {
-        this.setState({duplicateFormOpen: true});
+    handleClickEdit = () => {
+        this.setState({
+            formOpen: true,
+            mode: 'edit'
+        });
+    };
+
+    handleClickDuplicate = () => {
+        this.setState({
+            formOpen: true,
+            mode: 'add'
+        });
     };
 
     handleClose = () => {
-        this.setState({duplicateFormOpen: false});
+        this.setState({formOpen: false});
     };
 
     render() {
@@ -34,20 +45,18 @@ export default class Transaction extends Component {
                     <Button className='action-button' onClick={this.handleDeleteClick}>
                         Delete
                     </Button>
-                    <Button className='action-button' onClick={this.handleClickOpenDuplicateForm}>
+                    <Button className='action-button' onClick={this.handleClickDuplicate}>
                         Duplicate
                     </Button>
-                    <AddTransactionContainer
-                        open={this.state.duplicateFormOpen}
-                        handleClose={this.handleClose}
-                        type={this.props.transaction.type}
-                        amount={this.props.transaction.amount}
-                        description={this.props.transaction.description}
-                        category={this.props.transaction.category}
-                    />
-                    <Button className='action-button'>
+                    <Button className='action-button' onClick={this.handleClickEdit}>
                         Edit
                     </Button>
+                    <TransactionFormContainer
+                        open={this.state.formOpen}
+                        mode={this.state.mode}
+                        transaction={this.props.transaction}
+                        handleClose={this.handleClose}
+                    />
                 </CardActions>
             </Card>
         );

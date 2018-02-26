@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addTransaction} from '../modules/transactions/transactionsActionCreators';
+import { addTransaction, editTransaction } from '../modules/transactions/transactionsActionCreators';
 import TransactionFormDialog from '../components/TransactionFormDialog/TransactionFormDialog';
 
 const mapStateToProps = (state) => ({
@@ -7,8 +7,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addTransaction: (type, amount, category, description, date) =>
-        dispatch(addTransaction(type, amount, category, description, date))
+    addTransaction: (transactionData) =>
+        dispatch(addTransaction(transactionData)),
+    editTransaction: (transaction, newTransactionData) =>
+        dispatch(editTransaction({transaction, newTransactionData}))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionFormDialog);

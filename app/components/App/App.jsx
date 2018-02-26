@@ -12,11 +12,13 @@ import './app.scss';
 class App extends Component {
     render() {
         return (
-            <div className={'app'}>
+            <div className='app'>
                 <Header/>
-                <Route path='/' exact component={HomePage}/>
-                <Route path='/statistic' component={StatisticPage}/>
-                <Route path='/settings' component={SettingsPage}/>
+                <div className='page-wrapper'>
+                    <Route path='/' exact component={HomePage}/>
+                    <Route path='/statistic' component={StatisticPage}/>
+                    <Route path='/settings' component={SettingsPage}/>
+                </div>
             </div>
         );
     }

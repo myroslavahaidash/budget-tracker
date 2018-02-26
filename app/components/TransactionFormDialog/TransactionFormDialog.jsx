@@ -11,17 +11,18 @@ import Select from 'material-ui/Select';
 
 import './transactionFormDialog.scss';
 
-const defaultCategory = '';
+const defaultCategory = '',
+    defaultDate = new Date().toISOString().slice(0, 10);
 
 export default class TransactionFormDialog extends Component {
     state = {
         open: false,
         categories: this.props.categories.expenses,
         type: '',
-        amount: 0,
+        amount: '',
         description: '',
         category: '',
-        date: new Date().toISOString().slice(0, 10)
+        date: defaultDate
     };
 
     handleClose = () => {
@@ -38,7 +39,14 @@ export default class TransactionFormDialog extends Component {
             description = data.get('description'),
             date = data.get('date');
 
-        this.props.addTransaction(type, amount, category, description, date);
+        if (this.props.mode === 'add') {
+            this.props.addTransaction({type, amount, category, description, date});
+        }
+
+        if (this.props.mode === 'edit') {
+            this.props.editTransaction(this.props.transaction, {type, amount, category, description, date});
+        }
+
         this.handleClose();
     };
 
@@ -57,19 +65,24 @@ export default class TransactionFormDialog extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
+        if (this.props.transaction) {
+            this.setState({
+                type: nextProps.transaction.type,
+                amount: nextProps.transaction.amount,
+                description: nextProps.transaction.description,
+                category: nextProps.transaction.category,
+                date: nextProps.mode === 'edit' ? nextProps.transaction.date : defaultDate,
+                categories: nextProps.transaction.type === 'Income' ? this.props.categories.incomes : this.props.categories.expenses
+            });
+        }
+        else {
+            this.setState({
+                type: 'Expense'
+            })
+        }
         this.setState({
-            open: nextProps.open,
-            type: nextProps.type,
-            amount: nextProps.amount,
-            description: nextProps.description,
-            category: nextProps.category,
-            categories: nextProps.type === 'Income' ? this.props.categories.incomes : this.props.categories.expenses
+            open: nextProps.open
         });
-    }
-
-    componentDidUpdate(){
-        console.log(this.state);
-        console.log(this.props);
     }
 
     render() {
@@ -79,7 +92,7 @@ export default class TransactionFormDialog extends Component {
                 onClose={this.handleClose}
             >
                 <DialogTitle>
-                    New Transaction
+                    {this.props.mode === 'edit' ? 'Edit ' : 'New '}Transaction
                 </DialogTitle>
                <DialogContent>
                    <form onSubmit={this.handleSubmit} className='add-transaction-form-dialog'>
@@ -99,9 +112,9 @@ export default class TransactionFormDialog extends Component {
                        <TextField type='number'
                                   label='Amount'
                                   name='amount'
+                                  required
                                   className='field'
-                                  value={this.state.amount}
-                                  inputProps={{ step: '0.01'}}
+                                  inputProps={{ step: '0.01', defaultValue: this.state.amount}}
                        />
                        <FormControl className='field'>
                            <InputLabel htmlFor='category'>Category</InputLabel>
@@ -123,7 +136,7 @@ export default class TransactionFormDialog extends Component {
                                   label='Description'
                                   name='description'
                                   className='field'
-                                  value={this.state.description}
+                                  defaultValue={this.state.description}
                        />
                        <TextField id='date'
                                   label='Date of transaction'
@@ -135,7 +148,9 @@ export default class TransactionFormDialog extends Component {
                                   }}
                                   className='field'
                        />
-                       <Button type='submit' raised color='primary'>Add Transaction</Button>
+                       <Button type='submit' raised color='primary'>
+                           {this.props.mode === 'edit' ? 'Edit ' : 'Add '}Transaction
+                       </Button>
                    </form>
                </DialogContent>
             </Dialog>

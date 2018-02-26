@@ -1,9 +1,16 @@
 import * as transactionsActions from './transactionsActions';
 
-export function addTransaction (type, amount, category, description, date) {
+export function addTransaction (transactionData) {
     return {
         type: transactionsActions.ADD_TRANSACTION,
-        payload: { type, amount, category, description, date }
+        payload: {transactionData}
+    }
+}
+
+export function editTransaction ({transaction, newTransactionData}) {
+    return {
+        type: transactionsActions.EDIT_TRANSACTION,
+        payload: {transaction, newTransactionData}
     }
 }
 
