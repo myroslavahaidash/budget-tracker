@@ -28,7 +28,8 @@ class StatisticContainer extends Component {
     render() {
         const dateFrom = this.state.dateFrom.toISOString().slice(0, 10),
             dateTo = this.state.dateTo.toISOString().slice(0, 10);
-        const filteredTransactions = this.props.transactions.filter(t => new Date(t.date) >= this.state.dateFrom && new Date(t.date) <= this.state.dateTo);
+        const filteredTransactions = this.props.transactions
+            .filter(t => new Date(t.date) >= this.state.dateFrom && new Date(t.date) <= this.state.dateTo);
         return (
             <Statistic transactions={filteredTransactions}
                        setDateFrom={this.setDateFrom}

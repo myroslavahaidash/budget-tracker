@@ -7,9 +7,13 @@ import TextField from 'material-ui/TextField';
 import './statistic.scss';
 
 export default class Statistic extends Component {
-    handleDateFromChange = event => this.props.setDateFrom(new Date(event.target.value));
+    handleDateFromChange = event => {
+        this.props.setDateFrom(new Date(event.target.value));
+    };
 
-    handleDateToChange = event => this.props.setDateTo(new Date(event.target.value));
+    handleDateToChange = event => {
+        this.props.setDateTo(new Date(event.target.value));
+    };
 
     render() {
         return (

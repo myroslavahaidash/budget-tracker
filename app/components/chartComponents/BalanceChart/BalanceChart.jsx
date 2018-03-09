@@ -9,8 +9,7 @@ export default class  BalanceChart extends Component {
             <div>
                 <AreaChart width={600} height={400} data={this.props.chartData}
                            margin={{top: 10, right: 30, left: 0, bottom: 0}}
-                           className='balance-chart'
-                >
+                           className='balance-chart'>
                     <XAxis dataKey='date' hide/>
                     <YAxis/>
                     <CartesianGrid strokeDasharray='3 3'/>

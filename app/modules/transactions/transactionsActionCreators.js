@@ -17,7 +17,7 @@ export function loadTransactionsFromDb () {
                     setTransactionsToStore(
                         querySnapshot.docs.map(doc => ({...doc.data(), ...{id: doc.id}}))));
                 dispatch(hideLoader());
-            })
+            });
     }
 }
 

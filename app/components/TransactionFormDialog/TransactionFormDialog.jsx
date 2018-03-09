@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Button from 'material-ui/Button';
 import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';

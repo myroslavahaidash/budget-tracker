@@ -59,6 +59,6 @@ export default class AddCategoryForm extends Component {
                     </form>
                 </CardContent>
             </Card>
-);
+        );
     }
 }

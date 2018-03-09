@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import TransactionContainer from '../../containers/TransactionContainer';
 import Filters from '../Filters/Filters';
 
@@ -37,7 +36,3 @@ export class TransactionsList extends Component {
         )
     }
 }
-
-TransactionsList.propTypes = {
-    transactions: PropTypes.array
-};

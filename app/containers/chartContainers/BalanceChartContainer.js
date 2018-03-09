@@ -15,8 +15,6 @@ export default class BalanceChartContainer extends Component {
 
         const orderedDailyBalances = orderBy(dailyBalances, t => t.date);
 
-        console.log(orderedDailyBalances);
-
         const dailyTotalBalances = orderedDailyBalances.map((t, i) => {
             if (i > 0) {
                 t.dailyBalance += orderedDailyBalances[i - 1].dailyBalance;

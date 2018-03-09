@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
-import './transaction.scss';
-import TransactionFormContainer from '../../containers/TransactionFormContainer';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import DeleteIcon from 'material-ui-icons/Delete';
 import EditIcon from 'material-ui-icons/Edit';
 import ContentCopyIcon from 'material-ui-icons/ContentCopy';
-
 import moment from 'moment/moment';
+
+import TransactionFormContainer from '../../containers/TransactionFormContainer';
+
+import './transaction.scss';
 
 export default class Transaction extends Component {
     state = {
