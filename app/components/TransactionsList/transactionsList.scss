@@ -1,0 +1,9 @@
+.not-found-message {
+  text-align: center;
+}
+
+.transactions-list {
+  @media screen and (max-width: 782px) {
+    margin: 0 4px;
+  }
+}

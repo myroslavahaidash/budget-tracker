@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import CategoriesContainer from '../../containers/CategoriesContainer';
 
-export class SettingsPage extends Component {
+export default class SettingsPage extends Component {
     render() {
         return (
-            <div>
-                Settings Page
-            </div>
+            <CategoriesContainer/>
         );
     }
 }

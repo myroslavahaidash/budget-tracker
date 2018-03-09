@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { deleteTransaction} from '../modules/transactions/transactionsActionCreators';
+import { deleteTransactionFromDb } from '../modules/transactions/transactionsActionCreators';
 import Transaction from '../components/Transaction/Transaction';
 
 const mapDispatchToProps = dispatch => ({
     deleteTransaction: (transaction) =>
-        dispatch(deleteTransaction(transaction))
+        dispatch(deleteTransactionFromDb(transaction)),
 });
 
 export default connect(null, mapDispatchToProps)(Transaction);

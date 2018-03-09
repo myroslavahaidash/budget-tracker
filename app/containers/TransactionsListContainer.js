@@ -4,8 +4,9 @@ import orderBy from 'lodash/orderBy';
 
 import { TransactionsList } from '../components/TransactionsList/TransactionsList';
 
-const mapStateToProps = (state) => ({
-    transactions: state.transactions,
+const mapStateToProps = state => ({
+    transactions: state.transactions.transactions,
+    isLoading: state.transactions.isLoading,
     categories: state.categories
 });
 
@@ -25,7 +26,7 @@ class TransactionsListContainer extends Component {
         let transactions = this.props.transactions;
 
         if (this.state.searchTerm) {
-            transactions = transactions.filter(t => t.description.startsWith(this.state.searchTerm));
+            transactions = transactions.filter(t => t.description.toLowerCase().includes(this.state.searchTerm.toLowerCase()));
         }
 
         if (this.state.type !== 'All') {
@@ -50,7 +51,7 @@ class TransactionsListContainer extends Component {
             transactions = transactions.filter(t => t.amount <= this.state.amountTo);
         }
 
-        return orderBy(transactions, ['date', 'description'], ['desc', 'asc']);
+        return orderBy(transactions, ['date', 'timeOfCreation'], ['desc', 'desc']);
     };
 
 
@@ -81,27 +82,38 @@ class TransactionsListContainer extends Component {
     render() {
         let filteredTransactions = this.getFilteredTransactions();
 
-        console.log(filteredTransactions);
-
         return (
-            <TransactionsList
-                transactions={filteredTransactions}
-                categories={this.props.categories}
-                setSearchTerm={this.setSearchTerm}
-                searchTerm={this.state.searchTerm}
-                setType={this.setType}
-                type={this.state.type}
-                setCategory={this.setCategory}
-                category={this.state.category}
-                date={this.state.startFromDate || defaultDate}
-                setDate={this.setStartFromDate}
-                amount={{
-                    from: this.state.amountFrom,
-                    to: this.state.amountTo
-                }}
-                setAmountFrom={this.setAmountFrom}
-                setAmountTo={this.setAmountTo}
-            />);
+            <div>
+                {this.props.isLoading && (
+                    <div className='loader'>Loading...</div>
+                )}
+                {this.props.transactions.length > 0 && (
+                    <TransactionsList
+                        transactions={filteredTransactions}
+                        categories={this.props.categories}
+                        setSearchTerm={this.setSearchTerm}
+                        searchTerm={this.state.searchTerm}
+                        setType={this.setType}
+                        type={this.state.type}
+                        setCategory={this.setCategory}
+                        category={this.state.category}
+                        date={this.state.startFromDate || defaultDate}
+                        setDate={this.setStartFromDate}
+                        amount={{
+                            from: this.state.amountFrom,
+                            to: this.state.amountTo
+                        }}
+                        setAmountFrom={this.setAmountFrom}
+                        setAmountTo={this.setAmountTo}
+                    />
+                )}
+                {(this.props.transactions.length === 0 && !this.props.isLoading)  && (
+                    <p className='not-found-message'>
+                        There are no transactions yet
+                    </p>
+                )}
+            </div>
+        );
     }
 }
 

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import StatisticContainer from '../../containers/StatisticContainer';
 
-export class StatisticPage extends Component {
+export default class StatisticPage extends Component {
     render() {
         return (
-            <div>
-                Statistic Page
-            </div>
+            <StatisticContainer/>
         );
     }
 }

@@ -17,7 +17,7 @@ const defaultCategory = '',
 export default class TransactionFormDialog extends Component {
     state = {
         open: false,
-        categories: this.props.categories.expenses,
+        categories: [],
         type: '',
         amount: '',
         description: '',
@@ -27,6 +27,7 @@ export default class TransactionFormDialog extends Component {
 
     handleClose = () => {
         this.props.handleClose();
+        this.setState({category: ''});
     };
 
 
@@ -38,9 +39,10 @@ export default class TransactionFormDialog extends Component {
             category = data.get('category'),
             description = data.get('description'),
             date = data.get('date');
+        const timeOfCreation = Date.now();
 
         if (this.props.mode === 'add') {
-            this.props.addTransaction({type, amount, category, description, date});
+            this.props.addTransaction({type, amount, category, description, date, timeOfCreation});
         }
 
         if (this.props.mode === 'edit') {
@@ -53,10 +55,10 @@ export default class TransactionFormDialog extends Component {
     handleTypeChange = (event, value) => {
       this.setState({type: value});
       if(value === 'Income') {
-          this.setState({categories: this.props.categories.incomes});
+          this.setState({categories: this.props.categories.incomeCategories});
       }
-      else {
-          this.setState({categories: this.props.categories.expenses});
+      if(value === 'Expense') {
+          this.setState({categories: this.props.categories.expenseCategories});
       }
     };
 
@@ -72,12 +74,13 @@ export default class TransactionFormDialog extends Component {
                 description: nextProps.transaction.description,
                 category: nextProps.transaction.category,
                 date: nextProps.mode === 'edit' ? nextProps.transaction.date : defaultDate,
-                categories: nextProps.transaction.type === 'Income' ? this.props.categories.incomes : this.props.categories.expenses
+                categories: nextProps.transaction.type === 'Income' ? this.props.categories.incomeCategories : this.props.categories.expenseCategories
             });
         }
         else {
             this.setState({
-                type: 'Expense'
+                type: 'Expense',
+                categories: nextProps.categories.expenseCategories
             })
         }
         this.setState({
@@ -127,8 +130,8 @@ export default class TransactionFormDialog extends Component {
                                    <em>None</em>
                                </MenuItem>
 
-                               {this.state.categories.map((category, i) =>
-                                   <MenuItem value={category} key={i}>{category}</MenuItem>
+                               {this.state.categories && this.state.categories.map((category, i) =>
+                                   <MenuItem value={category.title} key={i}>{category.title}</MenuItem>
                                )}
                            </Select>
                        </FormControl>
@@ -136,9 +139,11 @@ export default class TransactionFormDialog extends Component {
                                   label='Description'
                                   name='description'
                                   className='field'
+                                  required
                                   defaultValue={this.state.description}
                        />
                        <TextField id='date'
+                                  required
                                   label='Date of transaction'
                                   type='date'
                                   name='date'

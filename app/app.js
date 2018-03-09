@@ -4,7 +4,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import App from './components/App/App';
+import AppContainer from './containers/AppContainer';
 
 import 'normalize.css';
 
@@ -23,11 +23,11 @@ const render = Component => {
     );
 };
 
-render(App);
+render(AppContainer);
 
 if (module.hot) {
-    module.hot.accept('./components/App/App', function () {
-        let NextApp = require('./components/App/App').default;
+    module.hot.accept('./containers/AppContainer', function () {
+        let NextApp = require('./containers/AppContainer').default;
         render(NextApp);
     })
 }

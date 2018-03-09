@@ -1,0 +1,34 @@
+$mediaMediumWidth: 665px;
+
+.add-category-form-wrapper {
+  margin-bottom: 10px;
+
+  @media screen and (max-width: 782px) {
+    margin: 0 4px 10px 4px;
+  }
+
+  .add-category-form {
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: $mediaMediumWidth){
+      flex-direction: column;
+    }
+
+    .title-field {
+      min-width: 280px;
+
+      @media screen and (max-width: $mediaMediumWidth){
+        margin: 10px 0;
+      }
+    }
+
+    .add-category-button {
+      max-width: 150px;
+
+      @media screen and (max-width: $mediaMediumWidth){
+        align-self: center;
+      }
+    }
+  }
+}

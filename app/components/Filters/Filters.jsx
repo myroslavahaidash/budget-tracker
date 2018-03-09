@@ -23,14 +23,13 @@ export default class Filters extends Component {
     handleTypeChange = (event, value) => {
         this.props.setCategory('');
         this.props.setType(value);
-        console.log(this.props.categories);
 
         if (value === 'Income'){
-            this.setState({categories: this.props.categories.incomes})
+            this.setState({categories: this.props.categories.incomeCategories})
         }
 
         if (value === 'Expense'){
-            this.setState({categories: this.props.categories.expenses})
+            this.setState({categories: this.props.categories.expenseCategories})
         }
 
         if (value === 'All'){
@@ -88,49 +87,51 @@ export default class Filters extends Component {
                                     <FormControlLabel value='Income' control={<Radio />} label='Incomes' />
                                 </RadioGroup>
                             </FormControl>
-                            <FormControl className='field'>
-                                <InputLabel htmlFor='category'>Category</InputLabel>
-                                <Select
-                                    onChange={this.handleCategoryChange}
-                                    value={this.props.category || ''}
-                                    input={<Input name='category' id='category' />}
-                                >
-                                    <MenuItem value=''>
-                                        <em>None</em>
-                                    </MenuItem>
+                            <div className='inputs'>
+                                <FormControl className='field category'>
+                                    <InputLabel htmlFor='category'>Category</InputLabel>
+                                    <Select
+                                        onChange={this.handleCategoryChange}
+                                        value={this.props.category}
+                                        input={<Input name='category' id='category' />}
+                                    >
+                                        <MenuItem value=''>
+                                            <em>None</em>
+                                        </MenuItem>
 
-                                    {this.state.categories.map((category, i) =>
-                                        <MenuItem value={category} key={i}>{category}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                            <TextField id='date'
-                                       className='field'
-                                       label='From date'
-                                       type='date'
-                                       name='date'
-                                       value={this.props.date}
-                                       onChange={this.handleDateFromChange}
-                                       InputLabelProps={{
-                                           shrink: true,
-                                       }}
-                            />
-                            <div className='field'>
-                                Amount
-                                <TextField type='number'
-                                           label='from'
-                                           name='amountFrom'
-                                           inputProps={{ step: '0.01', defaultValue: this.props.amount.from}}
-                                           onChange={this.handleAmountFromChange}
-                                           className='amount'
+                                        {this.state.categories.map((category, i) =>
+                                            <MenuItem value={category.title} key={i}>{category.title}</MenuItem>
+                                        )}
+                                    </Select>
+                                </FormControl>
+                                <TextField id='date'
+                                           className='field date'
+                                           label='From date'
+                                           type='date'
+                                           name='date'
+                                           value={this.props.date}
+                                           onChange={this.handleDateFromChange}
+                                           InputLabelProps={{
+                                               shrink: true,
+                                           }}
                                 />
-                                <TextField type='number'
-                                           label='to'
-                                           name='amountTo'
-                                           inputProps={{ step: '0.01', defaultValue: this.props.amount.to}}
-                                           onChange={this.handleAmountToChange}
-                                           className='amount'
-                                />
+                                <div className='field'>
+                                    Amount
+                                    <TextField type='number'
+                                               label='from'
+                                               name='amountFrom'
+                                               inputProps={{ step: '0.01', defaultValue: this.props.amount.from}}
+                                               onChange={this.handleAmountFromChange}
+                                               className='amount'
+                                    />
+                                    <TextField type='number'
+                                               label='to'
+                                               name='amountTo'
+                                               inputProps={{ step: '0.01', defaultValue: this.props.amount.to}}
+                                               onChange={this.handleAmountToChange}
+                                               className='amount'
+                                    />
+                                </div>
                             </div>
                         </CardContent>
                     </Card>

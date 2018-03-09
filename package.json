@@ -9,10 +9,12 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
+    "firebase": "4.9.0",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.27",
     "material-ui-icons": "^1.0.0-beta.17",
+    "moment": "^2.21.0",
     "normalize.css": "^7.0.0",
     "path": "^0.12.7",
     "react": "^16.2.0",
@@ -20,7 +22,9 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "redux": "^3.7.2"
+    "recharts": "^1.0.0-beta.10",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

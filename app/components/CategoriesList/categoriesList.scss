@@ -1,0 +1,15 @@
+.categories-section {
+  @media screen and (max-width: 782px) {
+    margin: 0 4px;
+  }
+}
+
+.categories-list {
+  display: flex;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.income-categories {
+  margin-bottom: 20px;
+}

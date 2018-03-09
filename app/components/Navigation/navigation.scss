@@ -1,3 +1,5 @@
+$mediaMediumWidth: 665px;
+
 nav.navigation {
   height: 100%;
   display: flex;
@@ -26,6 +28,14 @@ nav.navigation {
       width: 100%;
       height: 2px;
       background: #fff;
+    }
+  }
+
+  .nav-text {
+    margin-left: 5px;
+
+    @media screen and (max-width: $mediaMediumWidth){
+      display: none;
     }
   }
 

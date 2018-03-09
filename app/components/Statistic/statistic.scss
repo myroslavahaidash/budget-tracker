@@ -1,0 +1,16 @@
+.categories-charts-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.statistic {
+  .date-filter {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .date-input {
+      margin-left: 20px;
+    }
+  }
+}

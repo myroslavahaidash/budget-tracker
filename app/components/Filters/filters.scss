@@ -1,3 +1,5 @@
+$mediaMediumWidth: 665px;
+
 .filters {
   .search-and-button-section {
     margin: 20px 0;
@@ -21,14 +23,31 @@
   .filters-section {
     margin: 20px 0;
     background: #E8EAF6;
-    display: flex;
-    flex-direction: column;
 
-    .field {
-      margin-bottom: 20px;
+    .inputs {
+      display: flex;
+      justify-content: space-between;
 
-      .amount {
-        margin: 0 10px;
+      @media screen and (max-width: $mediaMediumWidth){
+       flex-direction: column;
+      }
+
+      .field {
+
+        &.category {
+          min-width: 200px;
+        }
+
+        &.date {
+          @media screen and (max-width: $mediaMediumWidth){
+            margin: 15px 0;
+          }
+        }
+
+        .amount {
+          width: 90px;
+          margin-left: 10px;
+        }
       }
     }
   }

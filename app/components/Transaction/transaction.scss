@@ -1,18 +1,104 @@
+$expense-color: #ec407a;
+$income-color: #4caf50;
+$mediaMediumWidth: 665px;
+$mediaMinWidth: 520px;
+
 .transaction {
   margin: 0 0 15px 0;
   display: flex;
   justify-content: space-between;
 
+  &.income {
+    border-left: 3px solid $income-color;
+  }
+
+  &.expense {
+    border-left: 3px solid $expense-color;
+  }
+
+  .transaction-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .info {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-right: 20px;
+      align-items: center;
+
+      @media screen and (max-width: $mediaMediumWidth){
+        flex-direction: column;
+        align-items: normal;
+      }
+
+
+      .description {
+        width: 300px;
+
+        @media screen and (max-width: $mediaMinWidth){
+          width: 160px;
+        }
+      }
+
+      .category {
+        padding: 2px 4px;
+        border-radius: 2px;
+        display: inline-block;
+
+        @media screen and (max-width: $mediaMediumWidth){
+          margin: 8px 0;
+        }
+
+        &.income {
+          background-color: $income-color;
+          color: white;
+        }
+
+        &.expense {
+          background-color: $expense-color;
+          color: white;
+        }
+      }
+
+      .date {
+        color: #757575
+      }
+    }
+
+    .amount {
+      width: 70px;
+      text-align: right;
+
+      &.income {
+        color: $income-color;
+      }
+
+      &.expense {
+        color: $expense-color;
+      }
+    }
+  }
+
   .transaction-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     padding: 16px;
     height: 100%;
 
     .action-button {
-      justify-content: flex-start;
       color: rgba(48, 48, 48, 0.7);
     }
   }
+}
+
+li.transaction-menu-item {
+  color: #424242;
+}
+
+.menu-icon {
+  margin-right: 5px;
 }

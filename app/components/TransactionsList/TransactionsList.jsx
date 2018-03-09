@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import TransactionContainer from '../../containers/TransactionContainer';
 import Filters from '../Filters/Filters';
 
+import './transactionsList.scss';
+
 export class TransactionsList extends Component {
     render(){
         return (
-            <div>
+            <div className='transactions-list'>
                 <Filters
                     setSearchTerm={this.props.setSearchTerm}
                     setType={this.props.setType}
@@ -17,16 +19,19 @@ export class TransactionsList extends Component {
                     category={this.props.category}
                     date={this.props.date}
                     setDate={this.props.setDate}
-                    amount={{
-                        from: this.props.amount.from,
-                        to: this.props.amount.to
-                    }}
+                    amount={this.props.amount}
                     setAmountFrom={this.props.setAmountFrom}
                     setAmountTo={this.props.setAmountTo}
                 />
                 <div>
-                    {this.props.transactions.map((t, i) =>
-                        <TransactionContainer key = {i} transaction = {t}/>)}
+                    {
+                        this.props.transactions.length > 0 ?
+                        this.props.transactions.map((t, i) =>
+                        <TransactionContainer key = {i} transaction = {t}/>) :
+                        <p className='not-found-message'>
+                            Transactions not found
+                        </p>
+                    }
                 </div>
             </div>
         )

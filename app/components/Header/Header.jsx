@@ -27,8 +27,8 @@ export default class Header extends Component {
                     <div className='app-bar-centred'>
                         <Navigation/>
                         <BalanceContainer/>
-                        <Button onClick={this.handleClickOpenAddForm}>
-                            <AddIcon/> Transaction
+                        <Button  className='add-transaction-button' onClick={this.handleClickOpenAddForm}>
+                            <AddIcon/>
                         </Button>
                         <TransactionFormContainer
                             open={this.state.open}
