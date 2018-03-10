@@ -83,36 +83,26 @@ class TransactionsListContainer extends Component {
         let filteredTransactions = this.getFilteredTransactions();
 
         return (
-            <div>
-                {this.props.isLoading && (
-                    <div className='loader'>Loading...</div>
-                )}
-                {this.props.transactions.length > 0 && (
-                    <TransactionsList
-                        transactions={filteredTransactions}
-                        categories={this.props.categories}
-                        setSearchTerm={this.setSearchTerm}
-                        searchTerm={this.state.searchTerm}
-                        setType={this.setType}
-                        type={this.state.type}
-                        setCategory={this.setCategory}
-                        category={this.state.category}
-                        date={this.state.startFromDate || defaultDate}
-                        setDate={this.setStartFromDate}
-                        amount={{
-                            from: this.state.amountFrom,
-                            to: this.state.amountTo
-                        }}
-                        setAmountFrom={this.setAmountFrom}
-                        setAmountTo={this.setAmountTo}
-                    />
-                )}
-                {(this.props.transactions.length === 0 && !this.props.isLoading)  && (
-                    <p className='not-found-message'>
-                        There are no transactions yet
-                    </p>
-                )}
-            </div>
+            <TransactionsList
+                totalTransactions={this.props.transactions.length}
+                isLoading={this.props.isLoading}
+                transactions={filteredTransactions}
+                categories={this.props.categories}
+                setSearchTerm={this.setSearchTerm}
+                searchTerm={this.state.searchTerm}
+                setType={this.setType}
+                type={this.state.type}
+                setCategory={this.setCategory}
+                category={this.state.category}
+                date={this.state.startFromDate || defaultDate}
+                setDate={this.setStartFromDate}
+                amount={{
+                    from: this.state.amountFrom,
+                    to: this.state.amountTo
+                }}
+                setAmountFrom={this.setAmountFrom}
+                setAmountTo={this.setAmountTo}
+            />
         );
     }
 }

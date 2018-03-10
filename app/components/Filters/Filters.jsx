@@ -106,7 +106,7 @@ export default class Filters extends Component {
                                 </FormControl>
                                 <TextField id='date'
                                            className='field date'
-                                           label='From date'
+                                           label='To date'
                                            type='date'
                                            name='date'
                                            value={this.props.date}
