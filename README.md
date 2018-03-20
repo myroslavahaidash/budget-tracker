@@ -1,4 +1,4 @@
-# budget-tracker
+# Budget Tracker
 
 The project is a simple app for personal budget tracking.
 
